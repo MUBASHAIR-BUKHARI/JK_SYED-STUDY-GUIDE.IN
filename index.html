@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JK SYED STUDY GUIDER | Desktop Pro Version</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* --- THEME & VARIABLES --- */
+        :root {
+            --primary-grad: linear-gradient(135deg, #FFD700, #32CD32, #8A2BE2);
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --text-color: #1a1a1a;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --accent: #8A2BE2;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            --bg-color: #05050a; --text-color: #f1f5f9; --card-bg: #11111d;
+            --glass: rgba(255, 255, 255, 0.03); --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Reading Mode */
+        body.reading-mode {
+            --bg-color: #121f1f; --text-color: #d1d5db; --card-bg: #1a2a2a;
+            --accent: #4ade80; filter: sepia(0.2) contrast(0.9);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); transition: background 0.3s; overflow-x: hidden; }
+
+        /* --- NAVBAR --- */
+        nav {
+            position: sticky; top: 0; z-index: 1000;
+            background: var(--glass); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 8%; display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { font-weight: 800; font-size: 1.6rem; letter-spacing: -0.5px; background: var(--primary-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .nav-controls { display: flex; gap: 12px; }
+        .mode-btn { 
+            cursor: pointer; padding: 10px 18px; border-radius: 50px; border: 1px solid var(--glass-border);
+            background: var(--card-bg); color: var(--text-color); font-size: 0.85rem; font-weight: 600;
+            display: flex; align-items: center; gap: 8px; transition: var(--transition);
+        }
+        .mode-btn:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: var(--shadow); }
+
+        /* --- HERO --- */
+        .hero { padding: 100px 5% 60px; text-align: center; }
+        .hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; }
+        .hero span { background: var(--primary-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
+        #type-writer { font-size: 1.5rem; font-weight: 600; color: var(--accent); min-height: 1.6em; margin: 25px 0; }
+        
+        .cta-box { margin-top: 30px; }
+        .btn-main {
+            background: var(--primary-grad); color: white; padding: 16px 45px; border-radius: 50px;
+            text-decoration: none; font-weight: 700; font-size: 1.1rem; display: inline-block;
+            transition: var(--transition); box-shadow: 0 15px 35px rgba(138, 43, 226, 0.2);
+        }
+        .btn-main:hover { transform: scale(1.05); box-shadow: 0 20px 45px rgba(138, 43, 226, 0.3); }
+
+        /* --- ADS SPACING --- */
+        .ad-section { width: 100%; max-width: 1200px; margin: 40px auto; min-height: 120px; background: var(--glass); border-radius: 20px; display: flex; align-items: center; justify-content: center; border: 1px dashed var(--glass-border); position: relative; }
+        .ad-tag { position: absolute; top: 5px; left: 15px; font-size: 9px; opacity: 0.5; text-transform: uppercase; }
+
+        /* --- SEARCH --- */
+        .search-area { max-width: 700px; margin: 0 auto 60px; padding: 0 20px; }
+        #mainSearch { 
+            width: 100%; padding: 20px 35px; border-radius: 60px; 
+            border: 2px solid var(--glass-border); background: var(--card-bg); 
+            color: var(--text-color); font-size: 1.1rem; outline: none; transition: 0.3s;
+            box-shadow: var(--shadow);
+        }
+        #mainSearch:focus { border-color: var(--accent); width: 105%; margin-left: -2.5%; }
+
+        /* --- CATEGORY GRID --- */
+        .desktop-container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+        .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-bottom: 80px; }
+        .cat-card {
+            background: var(--card-bg); padding: 50px 30px; border-radius: 30px; text-align: center;
+            border: 1px solid var(--glass-border); transition: var(--transition); cursor: pointer;
+            position: relative; overflow: hidden;
+        }
+        .cat-card:hover { transform: translateY(-15px); border-color: var(--accent); box-shadow: 0 25px 50px rgba(0,0,0,0.12); }
+        .cat-card i { font-size: 3.5rem; margin-bottom: 25px; background: var(--primary-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; }
+        .cat-card h3 { font-size: 1.3rem; font-weight: 700; }
+
+        /* --- BLOGS --- */
+        .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 35px; }
+        .blog-item { 
+            background: var(--card-bg); border-radius: 25px; overflow: hidden; border: 1px solid var(--glass-border); 
+            transition: 0.3s; cursor: pointer; box-shadow: var(--shadow);
+        }
+        .blog-item:hover { transform: scale(1.03); }
+        .blog-item img { width: 100%; height: 220px; object-fit: cover; }
+        .blog-content { padding: 25px; }
+        .blog-content h3 { margin-bottom: 12px; line-height: 1.4; }
+        .blog-content p { font-size: 0.95rem; opacity: 0.7; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+        /* --- MODAL SYSTEM --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(12px);
+            display: none; justify-content: center; align-items: center; z-index: 2000;
+        }
+        .modal-box {
+            background: var(--card-bg); padding: 50px; border-radius: 35px;
+            width: 70%; max-width: 900px; max-height: 85vh; overflow-y: auto;
+            position: relative; border: 1px solid var(--glass-border);
+            animation: modalIn 0.5s ease-out;
+        }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        
+        .close-btn { position: absolute; top: 25px; right: 30px; font-size: 2.5rem; cursor: pointer; color: var(--accent); }
+        
+        /* Links in Modal */
+        .sub-link {
+            padding: 20px 30px; margin: 15px 0; border-radius: 20px;
+            background: var(--glass); border: 1px solid var(--glass-border);
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 1.1rem; font-weight: 600; transition: 0.3s;
+        }
+        .sub-link:hover { background: var(--primary-grad); color: white; transform: translateX(15px); }
+
+        /* Blog Viewer */
+        .blog-full-img { width: 100%; border-radius: 25px; margin-bottom: 30px; height: 400px; object-fit: cover; }
+        .blog-full-body { line-height: 1.8; font-size: 1.1rem; white-space: pre-wrap; word-wrap: break-word; }
+        .blog-full-body a { color: #3b82f6; text-decoration: underline; font-weight: 700; }
+
+        /* --- FOOTER --- */
+        footer { background: var(--card-bg); padding: 80px 5% 40px; border-top: 1px solid var(--glass-border); margin-top: 100px; text-align: center; }
+        .f-socials a { font-size: 2rem; margin: 0 20px; color: var(--accent); transition: 0.3s; display: inline-block; }
+        .f-socials a:hover { transform: translateY(-10px) scale(1.2); }
+        .copyright { margin-top: 40px; font-weight: 700; opacity: 0.6; letter-spacing: 1px; }
+
+        /* Scroll Up */
+        #goTop {
+            position: fixed; bottom: 40px; right: 40px; background: var(--primary-grad);
+            color: white; width: 60px; height: 60px; border-radius: 50%;
+            display: none; justify-content: center; align-items: center; cursor: pointer; z-index: 1000; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* --- DESKTOP ONLY FIX --- */
+        @media (max-width: 1024px) {
+            .cat-grid { grid-template-columns: repeat(2, 1fr); }
+            .blog-grid { grid-template-columns: repeat(2, 1fr); }
+            .modal-box { width: 90%; padding: 30px; }
+        }
+        @media (max-width: 600px) {
+            .cat-grid, .blog-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-controls span { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Desktop Navigation -->
+    <nav>
+        <div class="logo">JK SYED STUDY GUIDER</div>
+        <div class="nav-controls">
+            <div class="mode-btn" onclick="changeTheme('light')"><i class="fas fa-sun"></i> <span>Light Mode</span></div>
+            <div class="mode-btn" onclick="changeTheme('dark')"><i class="fas fa-moon"></i> <span>Dark Mode</span></div>
+            <div class="mode-btn" onclick="changeTheme('reading')"><i class="fas fa-glasses"></i> <span>Reading</span></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <h1 data-aos="fade-down">Premium <span>Study Material</span> Hub</h1>
+        <div id="type-writer"></div>
+        <p style="max-width: 800px; margin: 0 auto; font-size: 1.1rem; opacity: 0.8;">
+            High-performance educational platform providing structured study material, daily blogs, and newspapers for all competitive exams without any cost.
+        </p>
+        <div class="cta-box">
+            <a href="#categories" class="btn-main">Explore Categories</a>
+        </div>
+    </header>
+
+    <!-- Ad Space 1 -->
+    <div class="ad-section">
+        <span class="ad-tag">Sponsored</span>
+        <script async src="https://js.onclckmn.com/static/onclicka.js" data-admpid="436335"></script>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-area" data-aos="fade-up">
+        <input type="text" id="mainSearch" placeholder="Search exams, materials, or news..." onkeyup="filterData()">
+    </div>
+
+    <!-- Main Content -->
+    <div class="desktop-container">
+        <h2 style="font-size: 2.2rem; margin-bottom: 40px; text-align: center;">Exams & Categories</h2>
+        <div class="cat-grid" id="catDisplay"></div>
+
+        <!-- Ad Space 2 -->
+        <div class="ad-section">
+            <span class="ad-tag">Sponsored</span>
+            <script async src="https://js.onclckmn.com/static/onclicka.js" data-admpid="436334"></script>
+        </div>
+
+        <h2 style="font-size: 2.2rem; margin: 80px 0 40px; text-align: center;">Daily Blogs & News</h2>
+        <div class="blog-grid" id="blogDisplay">
+            <p style="text-align: center; grid-column: 1/-1;">Loading Desktop Blog Feed...</p>
+        </div>
+    </div>
+
+    <!-- Desktop Modal System -->
+    <div class="modal-overlay" id="globalModal">
+        <div class="modal-box">
+            <span class="close-btn" onclick="closeM()">&times;</span>
+            <div id="modalInjected"></div>
+        </div>
+    </div>
+
+    <div id="goTop" onclick="window.scrollTo({top:0, behavior:'smooth'})"><i class="fas fa-chevron-up"></i></div>
+
+    <!-- Professional Footer -->
+    <footer>
+        <div class="f-socials">
+            <a href="https://www.instagram.com/anonymous_engeneer?igsh=ajNzbXZwZ2VxMW9x" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://t.me/+bFtDgznHBRk4YWI9" target="_blank"><i class="fab fa-telegram"></i></a>
+            <a href="mailto:omnitools6@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p class="copyright">DEVELOPED BY MUBASHAIR BUKHARI</p>
+    </footer>
+
+    <!-- FIREBASE INTEGRATION (V9) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+
+        // 🔥 Replace with your specific Firebase Config
+        const firebaseConfig = {
+  apiKey: "AIzaSyCA8VMPHkJ6xSAIuLFDTGXand9trW5uIQs",
+  authDomain: "defence-civil-hub-338e3.firebaseapp.com",
+  projectId: "defence-civil-hub-338e3",
+  storageBucket: "defence-civil-hub-338e3.firebasestorage.app",
+  messagingSenderId: "1044567296761",
+  appId: "1:1044567296761:web:ecdbdaca56fcbe84f8f028",
+  measurementId: "G-MYZ78FMXXN"
+};
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Desktop Blog Loader
+        const blogDiv = document.getElementById('blogDisplay');
+        onSnapshot(query(collection(db, "blogs"), orderBy("timestamp", "desc")), (snap) => {
+            blogDiv.innerHTML = '';
+            if(snap.empty) { blogDiv.innerHTML = '<p>No blogs available for desktop view.</p>'; return; }
+            
+            snap.forEach(doc => {
+                const b = doc.data();
+                const bCard = document.createElement('div');
+                bCard.className = 'blog-item';
+                bCard.setAttribute('data-aos', 'fade-up');
+                bCard.onclick = () => openFullBlogView(b);
+                bCard.innerHTML = `
+                    <img src="${b.image || 'https://via.placeholder.com/800x400'}" alt="Blog Image">
+                    <div class="blog-content">
+                        <h3>${b.title}</h3>
+                        <p>${b.description}</p>
+                        <span style="color:var(--accent); font-weight:700; font-size:0.9rem; margin-top:10px; display:inline-block;">READ MORE →</span>
+                    </div>
+                `;
+                blogDiv.appendChild(bCard);
+            });
+        });
+
+        // Link Detection for Desktop
+        function desktopLinkify(text) {
+            const urlRegex = /(https?:\/\/[^\s]+)/g;
+            return text.replace(urlRegex, url => `<a href="${url}" target="_blank">${url}</a>`);
+        }
+
+        window.openFullBlogView = (b) => {
+            const inner = document.getElementById('modalInjected');
+            inner.innerHTML = `
+                <h1 style="margin-bottom:20px; color:var(--accent);">${b.title}</h1>
+                <img src="${b.image}" class="blog-full-img" onerror="this.style.display='none'">
+                <div class="blog-full-body">${desktopLinkify(b.description)}</div>
+            `;
+            document.getElementById('globalModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        };
+    </script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // --- FULL RE-ESTABLISHED DATA ---
+        const desktopData = [
+            { id: 'def', title: 'Defence', icon: 'fas fa-shield-halved', subs: [
+                {n: 'ARMY', l: 'https://drive.google.com/drive/folders/1rHs_KPCK1iE9N9z4cV0NSn2ie2ok5lcZ'},
+                {n: 'NAVY', l: 'https://drive.google.com/drive/folders/1smkQubiCQHVSDAig_b4BFTB8aplMvPUG'},
+                {n: 'AIRFORCE', l: 'https://drive.google.com/drive/folders/11s1BznhKnj29SGynAjsKwJ8HYdjzHArh'}
+            ]},
+            { id: 'je', title: 'Junior Engineer', icon: 'fas fa-drafting-compass', subs: [
+                {n: 'SSC JE', l: 'https://drive.google.com/drive/folders/1kfizaTngiZUoHITbrwOsMe2NUMlZcEeq'},
+                {n: 'RRB JE', l: 'https://drive.google.com/drive/folders/1ajYLc_0C4Z92CSysxeLbKqppwC5jz9ZZ'},
+                {n: 'JKSSB JE', l: 'https://drive.google.com/drive/folders/1lOa02tUFz837WQGH6fzRhHXwwKxxXnYS'},
+                {n: 'DRDO', l: 'https://drive.google.com/drive/folders/1M97mh2X34iVp3WRBjKn22j0LLvxWGV_U'}
+            ]},
+            { id: 'para', title: 'Paramilitary', icon: 'fas fa-person-military-rifle', subs: [
+                {n: 'SSC GD', l: 'https://drive.google.com/drive/folders/1pbe2-1ydicq76NxZAAOf-q8X4-4CG-3t'},
+                {n: 'TERRITORIAL ARMY', l: 'https://drive.google.com/drive/folders/1Ign26LEubs50LTamqzTQzTHMeBNRrm3i'},
+                {n: 'JKP CONSTABLE', l: 'https://drive.google.com/drive/folders/1qDaQkfGYv942vMhDLtVfbXWyHaMhOHN2'},
+                {n: 'SSC CHSL', l: 'https://drive.google.com/drive/folders/1QXSWt14QoxEQ0kIlmVwW3a3gC5sWZDgY'},
+                {n: 'SSC CGL', l: 'https://drive.google.com/drive/folders/1dS2uflblSKXIIHEchBj5dwiFcRtfynYv'}
+            ]},
+            { id: 'rail', title: 'Railway', icon: 'fas fa-train-subway', subs: [
+                {n: 'LOCO PILOT', l: 'https://drive.google.com/drive/folders/1hmPxMftrGUSXDLXEO39UMKQxtB0VcTzu'},
+                {n: 'GROUP D / CLERK', l: 'https://drive.google.com/drive/folders/1nIkpi7_Aq60HI-iFdUmb2zBx7-9SdD-n'},
+                {n: 'MEDICAL / TECHNICAL', l: 'https://drive.google.com/drive/folders/1C6XQOxRgvSYQ_GWMUQe3GGcM3RlhCq4a'}
+            ]},
+            { id: 'neet', title: 'NEET', icon: 'fas fa-stethoscope', subs: [
+                {n: 'BSC NURSING', l: 'https://drive.google.com/drive/folders/1quzdVTuqP_uL046Fng_8IRuIqkN7tnzV'},
+                {n: 'PHYSICS', l: 'https://drive.google.com/drive/folders/1ZsPTZvONjIeAd-35Bs-2CGl268H-CWyG'},
+                {n: 'CHEMISTRY', l: 'https://drive.google.com/drive/folders/1-qANKWs_GPZ54yasCR1gmI5rYhgGwsiG'},
+                {n: 'BIOLOGY', l: 'https://drive.google.com/drive/folders/1iD0T1w5BGMUWk8Bm6VWAxd6sir1bnUob'}
+            ]},
+            { id: 'jee', title: 'JEE', icon: 'fas fa-atom', subs: [
+                {n: 'PHYSICS', l: 'https://drive.google.com/drive/folders/1pUcAleazGAoqEcKgcExqb_kHfxcI1Pa4'},
+                {n: 'CHEMISTRY', l: 'https://drive.google.com/drive/folders/1Xhr4IBicb9g-IamB8UDqYpeVOnxmqktk'},
+                {n: 'MATHEMATICS', l: 'https://drive.google.com/drive/folders/14w_O2h8wt1IzhvYT9KPStZC064i869WW'}
+            ]},
+            { id: 'upsc', title: 'UPSC', icon: 'fas fa-landmark-dome', subs: [
+                {n: 'IAS', l: 'https://drive.google.com/drive/folders/1c1ghbCDICmvXfO23EJybgUQm8dm8x6Mq'},
+                {n: 'IPS', l: 'https://drive.google.com/drive/folders/16UeKl-aiqwlcmjamldSbHrDb7BoXyjZe'},
+                {n: 'KAS', l: 'https://drive.google.com/drive/folders/1G_Qtg0TGEI9r011i33VwzqGtKnyAr0bA'},
+                {n: 'IFA', l: 'https://drive.google.com/drive/folders/1fwJSryr7i8GazkhGOeUGb2cvBzTdGKVM'}
+            ]},
+            { id: 'news', title: 'Daily Newspaper', icon: 'fas fa-newspaper', subs: [
+                {n: 'THE HINDU', l: 'https://drive.google.com/drive/folders/1OmT5EVEolAObelprYaHwRXpGePgk9_5N'},
+                {n: 'INDIAN EXPRESS', l: 'https://drive.google.com/drive/folders/1Hx0Cs5OfjoMoIxfa7i2niL28DTMOU8_0'},
+                {n: 'TIMES OF INDIA', l: 'https://drive.google.com/drive/folders/1n-F9dbY42f8nRI40BWB0r0Sc2RocTfje'}
+            ]}
+        ];
+
+        // Rendering Engine
+        const displayDiv = document.getElementById('catDisplay');
+        function renderNow(list) {
+            displayDiv.innerHTML = list.map(item => `
+                <div class="cat-card" onclick="openSubsModal('${item.id}')" data-aos="zoom-in">
+                    <i class="${item.icon}"></i>
+                    <h3>${item.title}</h3>
+                </div>
+            `).join('');
+        }
+        renderNow(desktopData);
+
+        // Subcategory Modal Logic
+        window.openSubsModal = (id) => {
+            const cat = desktopData.find(x => x.id === id);
+            const modalBody = document.getElementById('modalInjected');
+            modalBody.innerHTML = `<h2 style="margin-bottom:30px; font-size:2rem; color:var(--accent);">${cat.title} Direct Access</h2>` + 
+                cat.subs.map(s => `
+                    <div class="sub-link" onclick="window.open('${s.l}', '_blank')">
+                        ${s.n} <i class="fas fa-external-link-square-alt"></i>
+                    </div>
+                `).join('');
+            document.getElementById('globalModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeM = () => {
+            document.getElementById('globalModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        };
+
+        // Theme Switcher Logic
+        window.changeTheme = (mode) => {
+            document.body.className = '';
+            if(mode !== 'light') document.body.classList.add(mode + '-mode');
+            localStorage.setItem('desktop-theme', mode);
+        };
+        if(localStorage.getItem('desktop-theme')) changeTheme(localStorage.getItem('desktop-theme'));
+
+        // Search Logic
+        window.filterData = () => {
+            const term = document.getElementById('mainSearch').value.toLowerCase();
+            const filtered = desktopData.filter(c => c.title.toLowerCase().includes(term));
+            renderNow(filtered);
+        };
+
+        // Typewriter Animation
+        const strings = ["Helping Students Succeed Without Cost.", "All Exams Preparation in One Hub.", "Defence, Engineering, Medical & UPSC Experts."];
+        let sIdx = 0, charIdx = 0, deleting = false;
+        function type() {
+            const current = strings[sIdx];
+            document.getElementById('type-writer').textContent = deleting ? current.substring(0, charIdx--) : current.substring(0, charIdx++);
+            let delay = deleting ? 50 : 100;
+            if(!deleting && charIdx === current.length + 1) { delay = 2500; deleting = true; }
+            else if(deleting && charIdx === 0) { deleting = false; sIdx = (sIdx + 1) % strings.length; }
+            setTimeout(type, delay);
+        }
+        type();
+
+        // Scroll Logic
+        window.onscroll = () => { document.getElementById('goTop').style.display = window.scrollY > 600 ? 'flex' : 'none'; };
+        
+        // Close on Overlay Click
+        window.onclick = (e) => { if(e.target == document.getElementById('globalModal')) closeM(); };
+    </script>
+</body>
+</html>
